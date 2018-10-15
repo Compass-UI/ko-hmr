@@ -1,5 +1,5 @@
 import * as ko from 'knockout'
-import * as helloWorldComponent from './hello-world'
+import * as helloWorldComponent from './hello'
 
 document.body.appendChild(document.createElement('hello-world'))
 
