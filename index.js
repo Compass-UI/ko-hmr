@@ -1,8 +1,8 @@
 import * as ko from 'knockout'
-import * as helloWorldComponent from './hello'
+import * as homeComponent from './home'
 
-document.body.appendChild(document.createElement('hello-world'))
+document.body.appendChild(document.createElement('home-page'))
 
-ko.components.register('hello-world', helloWorldComponent)
+ko.components.register('home-page', homeComponent)
 
 ko.applyBindings()
