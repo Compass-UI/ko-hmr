@@ -1,5 +1,5 @@
 import * as ko from 'knockout'
-import * as homePageComponent from './home'
+import * as fsrComponent from './fsr.component'
 
 // document.body.appendChild(document.createElement('home-page'))
 
@@ -8,18 +8,14 @@ import * as homePageComponent from './home'
 // ko.applyBindings()
 
 
- const hotHomeLoader = {
+ const hotFSRLoader = {
        hotComponentName: '__HOT__home-page',
        ready: ko.observable(true),
        loadComponent(name, componentConfig, cb) {
          if (name !== 'home-page') return cb(null)
-         ko.components.register(hotHomeLoader.hotComponentName, componentConfig)
+         ko.components.register(hotFSRLoader.hotComponentName, componentConfig)
          if (!componentConfig.viewModel) {
            componentConfig.viewModel = class {
-            //    details = ko.observable('Details...');
-            constructor(){
-                this.details = ko.observable('Details..');
-            }
             //         details = ko.observable("<em>For further details, view the report <a href='report.html'>here</a>.</em>") // Initially blank
             //         details("<em>For further details, view the report <a href='report.html'>here</a>.</em>"); // HTML content appears
            }
@@ -31,30 +27,30 @@ import * as homePageComponent from './home'
          const $wrapper = document.createElement('span')
          const $component = document.createElement('span')
          $wrapper.setAttribute('data-bind', 'if: ready')
-         $component.setAttribute('data-bind', `component: { name: '${hotHomeLoader.hotComponentName}', params: params }`)
+         $component.setAttribute('data-bind', `component: { name: '${hotFSRLoader.hotComponentName}', params: params }`)
          $wrapper.appendChild($component)
          cb([$wrapper])
        },
        loadViewModel(name, viewModelConfig, cb) {
          if (name !== 'home-page') return cb(null)
-         cb((params) => ({ ready: hotHomeLoader.ready, params }))
+         cb((params) => ({ ready: hotFSRLoader.ready, params }))
        },
        reloadComponent() {
-         hotHomeLoader.ready(false)
-         ko.components.unregister(hotHomeLoader.hotComponentName)
-         ko.components.clearCachedDefinition(hotHomeLoader.hotComponentName)
-         ko.components.register(hotHomeLoader.hotComponentName, homePageComponent)
-         hotHomeLoader.ready(true)
+         hotFSRLoader.ready(false)
+         ko.components.unregister(hotFSRLoader.hotComponentName)
+         ko.components.clearCachedDefinition(hotFSRLoader.hotComponentName)
+         ko.components.register(hotFSRLoader.hotComponentName, fsrComponent)
+         hotFSRLoader.ready(true)
        }
      }
     
-     module.hot.accept('./home', hotHomeLoader.reloadComponent)
+     module.hot.accept('./home', hotFSRLoader.reloadComponent)
     
       document.body.appendChild(document.createElement('home-page'))
     
-      ko.components.register('home-page', homePageComponent)
+      ko.components.register('home-page', fsrComponent)
     
-      ko.components.loaders.unshift(hotHomeLoader)
+      ko.components.loaders.unshift(hotFSRLoader)
     
       ko.applyBindings()
     
