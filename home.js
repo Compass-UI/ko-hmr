@@ -1,1 +1,1 @@
-export const template = 'United, Compass'
+export const template = 'United, Compass HMR'
